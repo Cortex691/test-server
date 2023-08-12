@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const { db } = require("../firebase-config");
+const jwt = require("jsonwebtoken");
+const privateKey = "wumpafruit69";
 
 router.post("/login", async (req, res) => {
   const { username, password } = req.body;
