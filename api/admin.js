@@ -1,5 +1,5 @@
 const express = require("express");
-const router = express.Router();
+const adminRouter = express.Router();
 const { db } = require("../firebase-config");
 
 router.get("/", async (req, res) => {});
@@ -425,4 +425,4 @@ router.post("/change-order-activity", async (req, res) => {
   }
 });
 
-module.exports = router;
+module.exports = adminRouter;
