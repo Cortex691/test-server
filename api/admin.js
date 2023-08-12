@@ -11,12 +11,15 @@ router.get("/", async (req, res) => {});
 router.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
+  console.log(username, password);
+
   try {
     const adminSnapshot = await db
       .ref("admin")
       .orderByChild("username")
       .equalTo(username)
       .once("value");
+
     const adminData = adminSnapshot.val();
 
     if (!adminData) {
@@ -35,7 +38,9 @@ router.post("/login", async (req, res) => {
     const token = jwt.sign(admin.id, privateKey);
 
     res.status(200).json({ message: "login-success", token: token });
-  } catch (err) {}
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 router.post("/add-brad", async (req, res) => {
