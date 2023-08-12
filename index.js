@@ -4,6 +4,7 @@ const cors = require("cors");
 
 const gost = require("./api/gost");
 const admin = require("./api/admin");
+const komercijalista = require("./api/komercijalista");
 
 const app = express();
 
@@ -23,5 +24,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/api/gost", gost);
 
 app.use("/api/admin", admin);
+
+app.use("/api/komercijalista", komercijalista);
 
 app.listen(PORT, () => console.log("Server is running in port", PORT));
