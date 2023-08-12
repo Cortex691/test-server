@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 
 const gost = require("./api/gost");
+const admin = require("./api/admin");
 
 const app = express();
 
@@ -13,5 +14,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/api/gost", gost);
+
+app.use("/api/admin", admin);
 
 app.listen(PORT, () => console.log("Server is running in port", PORT));
