@@ -4,6 +4,17 @@ const { db } = require("../firebase-config");
 const jwt = require("jsonwebtoken");
 const privateKey = "wumpafruit69";
 
+const validateTokenAndGetUser = (token) => {
+  try {
+    const id = jwt.verify(token, privateKey);
+
+    return id;
+  } catch (err) {
+    console.log(err);
+    return "token-error";
+  }
+};
+
 router.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
@@ -72,7 +83,7 @@ router.post("/get-data", async (req, res) => {
   }
 });
 
-router.get("/get-brands", async (req, res) => {
+router.post("/get-brands", async (req, res) => {
   try {
     const brandsSnapshot = await db.ref("brands").once("value");
     const brandsData = brandsSnapshot.val();
