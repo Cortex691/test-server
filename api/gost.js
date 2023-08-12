@@ -1,5 +1,5 @@
 const express = require("express");
-const gostRouter = express.Router();
+const router = express.Router();
 const { db } = require("../firebase-config");
 
 router.get("/get-brands", async (req, res) => {
@@ -66,4 +66,4 @@ router.post("/get-product", async (req, res) => {
   }
 });
 
-module.exports = gostRouter;
+module.exports = router;

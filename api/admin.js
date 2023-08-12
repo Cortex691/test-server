@@ -1,6 +1,8 @@
 const express = require("express");
-const adminRouter = express.Router();
+const router = express.Router();
 const { db } = require("../firebase-config");
+const { storage } = require("firebase-admin");
+const { uuidv4 } = require("@firebase/util");
 
 router.get("/", async (req, res) => {});
 
@@ -245,7 +247,7 @@ router.get("/get-komercijalista", async (req, res) => {
   }
 });
 
-router.port("/edit-komercijalista", async (req, res) => {
+router.post("/edit-komercijalista", async (req, res) => {
   const { editedKomercijalista } = req.body;
 
   try {
@@ -425,4 +427,4 @@ router.post("/change-order-activity", async (req, res) => {
   }
 });
 
-module.exports = adminRouter;
+module.exports = router;
