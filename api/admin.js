@@ -5,13 +5,45 @@ const { storage } = require("firebase-admin");
 const { uuidv4 } = require("@firebase/util");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const privateKey = "wumpafruit69";
 
-router.get("/", async (req, res) => {});
-
-router.post("/login", async (req, res) => {
+router.get("/login", async (req, res) => {
   const { username, password } = req.body;
 
-  console.log(username, password);
+  try {
+    //     const adminSnapshot = await db
+    //       .ref("admin")
+    //       .orderByChild("username")
+    //       .equalTo(username)
+    //       .once("value");
+
+    //     const adminData = adminSnapshot.val();
+
+    //     if (!adminData) {
+    //       return res.status(200).json({ error: "Invalid username" });
+    //     }
+
+    //     const adminKey = Object.keys(adminData)[0];
+    //     const admin = adminData[adminKey];
+
+    //     const passwordMatch = await bcrypt.compare(password, admin.password);
+
+    //     if (!passwordMatch) {
+    //       return res.status(200).json({ error: "Invalid password" });
+    //     }
+
+    //     const token = jwt.sign(admin.id, privateKey);
+
+    //     res.status(200).json({ message: "login-success", token: token });
+
+    res.json("Route hit!!");
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+router.post("/admin-login", async (req, res) => {
+  const { username, password } = req.body;
 
   try {
     const adminSnapshot = await db
@@ -237,7 +269,7 @@ router.post("/add-komercijalista", async (req, res) => {
   }
 });
 
-router.get("/get-komercijalista", async (req, res) => {
+router.get("/get-komercijaliste", async (req, res) => {
   try {
     const komercijalistiSnapshot = await db.ref("komercijalisti").once("value");
     const komercijalisti = komercijalistiSnapshot.val();
