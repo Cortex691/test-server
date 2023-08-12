@@ -72,15 +72,8 @@ router.post("/get-data", async (req, res) => {
   }
 });
 
-router.post("/get-brands", async (req, res) => {
-  const { token } = req.body;
-
+router.get("/get-brands", async (req, res) => {
   try {
-    const id = validateTokenAndGetUser(token);
-    if (!id) {
-      return res.status(401).json({ error: "Unauthorized" });
-    }
-
     const brandsSnapshot = await db.ref("brands").once("value");
     const brandsData = brandsSnapshot.val();
 
