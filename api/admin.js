@@ -3,6 +3,8 @@ const router = express.Router();
 const { db } = require("../firebase-config");
 const { storage } = require("firebase-admin");
 const { uuidv4 } = require("@firebase/util");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 router.get("/", async (req, res) => {});
 
