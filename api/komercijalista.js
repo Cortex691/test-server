@@ -83,7 +83,7 @@ router.post("/get-data", async (req, res) => {
   }
 });
 
-router.post("/get-brands", async (req, res) => {
+router.get("/get-brands", async (req, res) => {
   try {
     const brandsSnapshot = await db.ref("brands").once("value");
     const brandsData = brandsSnapshot.val();
