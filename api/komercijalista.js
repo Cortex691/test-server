@@ -3,6 +3,7 @@ const router = express.Router();
 const { db } = require("../firebase-config");
 const jwt = require("jsonwebtoken");
 const privateKey = "wumpafruit69";
+const { uuidv4 } = require("@firebase/util");
 
 const validateTokenAndGetUser = (token) => {
   try {
