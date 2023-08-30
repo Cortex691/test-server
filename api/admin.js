@@ -75,7 +75,7 @@ router.post("/admin-login", async (req, res) => {
   }
 });
 
-router.post("/add-brad", async (req, res) => {
+router.post("/add-brand", async (req, res) => {
   const { brand } = req.body;
 
   try {
