@@ -94,6 +94,60 @@ router.post("/add-brand", async (req, res) => {
   }
 });
 
+router.post("/delete-brand", async (req, res) => {
+  const { deleteId } = req.body;
+
+  try {
+    // Find the brand with the specified deleteId
+    const brandsRef = db.ref("brands");
+    const query = brandsRef.orderByChild("id").equalTo(deleteId);
+    const snapshot = await query.once("value");
+    const brandData = snapshot.val();
+
+    if (!brandData) {
+      return res.status(404).json("Brand not found");
+    }
+
+    // Get the brand's name
+    const brandName = Object.values(brandData)[0].ime;
+
+    // Delete the brand
+    const brandKey = Object.keys(brandData)[0];
+    await brandsRef.child(brandKey).remove();
+
+    // Find and delete all products with the same brand name
+    const productsRef = db.ref("products");
+    const productsSnapshot = await productsRef.once("value");
+    const productsData = productsSnapshot.val();
+
+    if (productsData) {
+      const productsToDelete = [];
+
+      // Iterate through products to find and mark products with the same brand name
+      for (const key in productsData) {
+        if (productsData.hasOwnProperty(key)) {
+          const product = productsData[key];
+          if (product.brand === brandName) {
+            productsToDelete.push(key);
+          }
+        }
+      }
+
+      // Delete the marked products
+      for (const key of productsToDelete) {
+        await productsRef.child(key).remove();
+      }
+    }
+
+    return res.json("Brand and associated products deleted successfully");
+  } catch (error) {
+    console.error("Error deleting brand and associated products:", error);
+    return res
+      .status(500)
+      .json("Failed to delete brand and associated products");
+  }
+});
+
 router.get("/get-brands", async (req, res) => {
   try {
     const brandsSnapshot = await db.ref("brands").once("value");
