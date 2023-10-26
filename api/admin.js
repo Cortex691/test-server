@@ -520,4 +520,18 @@ router.post("/change-order-activity", async (req, res) => {
   }
 });
 
+router.post("/update-products-order", async (req, res) => {
+  const { products } = req.body;
+
+  try {
+    // Replace the existing products with the new products
+    await db.ref("products").set(products);
+
+    return res.json({ message: "Product order updated successfully." });
+  } catch (error) {
+    console.error("Error updating product order:", error);
+    return res.status(500).json({ error: "Internal server error." });
+  }
+});
+
 module.exports = router;
