@@ -230,6 +230,10 @@ router.post("/delete-image", async (req, res) => {
       .bucket()
       .file(`${folder}/${identifier}`);
 
+    if (!medspaPicturesRef) {
+      res.status(200).json({ message: "Picture does not even exists." });
+    }
+
     await medspaPicturesRef.delete();
 
     res.status(200).json({ message: "Picture deleted successfully" });

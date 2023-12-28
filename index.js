@@ -14,7 +14,7 @@ const allowedOrigins = [
   "https://komercijalista.dg-catalog.com",
 ];
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 5050;
 
 app.use(cors());
 
