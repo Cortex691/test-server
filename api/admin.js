@@ -494,6 +494,40 @@ router.get("/get-orders", async (req, res) => {
   }
 });
 
+router.get("/get-active-orders", async (req, res) => {
+  try {
+    const ordersSnapshot = await db.ref("orders").once("value");
+    const ordersData = ordersSnapshot.val();
+
+    // Filter active orders (aktivnost === true)
+    const activeOrders = Object.values(ordersData || {}).filter(
+      (order) => order.aktivnost === true
+    );
+
+    res.status(200).json(activeOrders);
+  } catch (error) {
+    console.error("Error fetching active orders:", error);
+    res.status(500).json({ error: "Failed to fetch active orders" });
+  }
+});
+
+router.get("/get-inactive-orders", async (req, res) => {
+  try {
+    const ordersSnapshot = await db.ref("orders").once("value");
+    const ordersData = ordersSnapshot.val();
+
+    // Filter inactive orders (aktivnost === false)
+    const inactiveOrders = Object.values(ordersData || {}).filter(
+      (order) => order.aktivnost === false
+    );
+
+    res.status(200).json(inactiveOrders);
+  } catch (error) {
+    console.error("Error fetching inactive orders:", error);
+    res.status(500).json({ error: "Failed to fetch inactive orders" });
+  }
+});
+
 router.post("/change-order-activity", async (req, res) => {
   const { orderId } = req.body;
 
