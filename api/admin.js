@@ -521,6 +521,7 @@ router.get("/get-inactive-orders", async (req, res) => {
       (order) => order.aktivnost === false
     );
 
+    res.setHeader("Access-Control-Allow-Origin", "*");
     res.status(200).json(inactiveOrders);
   } catch (error) {
     console.error("Error fetching inactive orders:", error);

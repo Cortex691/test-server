@@ -16,10 +16,10 @@ const allowedOrigins = [
 
 const PORT = process.env.PORT || 5050;
 
-app.use(cors());
-
-app.use(bodyParser.json({ limit: "50mb" }));
+// app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
+
+app.use(cors());
 
 app.use("/api/gost", gost);
 
